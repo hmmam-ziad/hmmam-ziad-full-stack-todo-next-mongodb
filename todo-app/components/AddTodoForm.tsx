@@ -20,8 +20,12 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createTodoActions } from "@/actions/todo.actions";
 import { Checkbox } from "./ui/checkbox";
+import { useState } from "react";
+import Spinner from "./spinner";
 
 const AddTodoForm = () => {
+    const [open, setOpen] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const defaultValues: Partial<todoFormValues> = {
         title: "",
@@ -36,21 +40,21 @@ const AddTodoForm = () => {
     });
 
     const onSubmit = async (data: todoFormValues) => {
+        setLoading(true);
         await createTodoActions({title: data.title, body: data.body || "", completed: data.completed || false});
+        form.reset();
+        setOpen(false);
+        setLoading(false);
     };
 
     return(
-        <Dialog>
+        <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger asChild>
             <Button><Plus size={14} className="mr-1"/>New Todo</Button>
           </DialogTrigger>
           <DialogContent className="sm:max-w-[425px]">
             <DialogHeader>
-              <DialogTitle>Edit profile</DialogTitle>
-              <DialogDescription>
-                Make changes to your profile here. Click save when you&apos;re
-                done.
-              </DialogDescription>
+              <DialogTitle>Add New Todo</DialogTitle>
             </DialogHeader>
             <div className="py-4">
               <Form {...form}>
@@ -89,15 +93,18 @@ const AddTodoForm = () => {
                     name="completed"
                     render={({ field }) => (
                       <FormItem>
-                        <FormControl>
-                          <Checkbox
-                            checked={field.value}
-                            onCheckedChange={field.onChange}
-                            ref={field.ref}
-                            name={field.name}
-                          />
-                        </FormControl>
-                        <FormLabel>Completed</FormLabel>
+                        <div className="flex items-center space-x-2">
+                            <FormControl>
+                            <Checkbox
+                              checked={field.value}
+                              onCheckedChange={field.onChange}
+                              ref={field.ref}
+                              name={field.name}
+                            />
+                          </FormControl>
+                          <FormLabel>Completed</FormLabel>
+                        </div>
+                        <FormDescription>Your to-do item be uncompleted by default unless you checked it.</FormDescription>
                         <FormMessage />
                       </FormItem>
                     )}
@@ -105,11 +112,14 @@ const AddTodoForm = () => {
 
 
                   <DialogFooter>
+                    <Button type="submit" disabled={loading}>{
+                        loading ? (<><Spinner /> Saving</>) : ("Save")
+                      }</Button>
                     <DialogClose asChild>
-                        <Button variant="outline">Cancel</Button>
+                        <Button variant="destructive">Cancel</Button>
                     </DialogClose>
-                    <Button type="submit">Save changes</Button>
-                    </DialogFooter>
+                    
+                  </DialogFooter>
                 </form>
               </Form>
       
