@@ -23,6 +23,10 @@ export const updateTodoActions = async () => {
     
 }
 
-export const deleteTodoActions = async () => {
-    
+export const deleteTodoActions = async ({ id }: {id: string}) => {
+    await prisma.post.delete({
+        where: {
+            id,
+        }
+    });
 }

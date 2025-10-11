@@ -6,8 +6,8 @@ export default async function Home() {
   const todos = await getTodosActions(); 
   return (
     <main className="container">
-    <AddTodoForm />
-    <TodoTable todos={todos}/>
+      <AddTodoForm />
+      <TodoTable todos={todos}/>
     </main>
   );
 }
