@@ -7,13 +7,7 @@ export default async function Home() {
   return (
     <main className="container">
     <AddTodoForm />
-    <TodoTable />
-
-    <ul>
-      {
-        todos.map(todo => <li key={todo.id} >{ todo.title}</li>)
-      }
-    </ul>
+    <TodoTable todos={todos}/>
     </main>
   );
 }
