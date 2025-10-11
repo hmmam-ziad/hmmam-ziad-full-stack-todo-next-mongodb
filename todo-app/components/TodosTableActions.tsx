@@ -1,5 +1,5 @@
 "use client";
-import { Pen, Trash } from "lucide-react";
+import { Trash } from "lucide-react";
 import { Button } from "./ui/button";
 import Spinner from "./spinner";
 import { useState } from "react";
