@@ -18,7 +18,7 @@ export default function TodoTable({todos} : {todos: ITodo[]}) {
 
   return (
     <Table>
-      <TableCaption>A list of your recent invoices.</TableCaption>
+      <TableCaption>A list of your recent Todos.</TableCaption>
       <TableHeader>
         <TableRow>
           <TableHead>ID</TableHead>
@@ -31,11 +31,11 @@ export default function TodoTable({todos} : {todos: ITodo[]}) {
       </TableHeader>
       <TableBody>
         {todos.map((todo) => (
-          <TableRow key={todo.id}>
-            <TableCell className="font-medium">{todo.id}</TableCell>
-            <TableCell>{todo.title}</TableCell>
+          <TableRow key={todo?.id}>
+            <TableCell className="font-medium">{todo?.id}</TableCell>
+            <TableCell>{todo?.title}</TableCell>
             <TableCell>
-                {todo.completed ? <Badge>Completed</Badge> : <Badge variant="secondary">Not Completed</Badge>}
+                {todo?.completed ? <Badge>Completed</Badge> : <Badge variant="secondary">Not Completed</Badge>}
                 </TableCell>
             <TableCell className="flex items-center justify-end space-x-2">
                 <TodosTableActions todo={todo} />
@@ -46,7 +46,7 @@ export default function TodoTable({todos} : {todos: ITodo[]}) {
       <TableFooter>
         <TableRow>
           <TableCell colSpan={3}>Total</TableCell>
-          <TableCell className="text-right">{todos.length}</TableCell>
+          <TableCell className="text-right">{!todos.length ? "You Dont Have Any Todos Yet": todos.length}</TableCell>
         </TableRow>
       </TableFooter>
     </Table>

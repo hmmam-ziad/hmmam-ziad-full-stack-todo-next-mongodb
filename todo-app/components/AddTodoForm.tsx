@@ -6,7 +6,6 @@ import {
   Dialog,
   DialogClose,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -23,7 +22,7 @@ import { Checkbox } from "./ui/checkbox";
 import { useState } from "react";
 import Spinner from "./spinner";
 
-const AddTodoForm = () => {
+const AddTodoForm = ({userId}: {userId: string | null}) => {
     const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(false);
 
@@ -41,7 +40,7 @@ const AddTodoForm = () => {
 
     const onSubmit = async (data: todoFormValues) => {
         setLoading(true);
-        await createTodoActions({title: data.title, body: data.body || "", completed: data.completed || false});
+        await createTodoActions({title: data.title, body: data.body || "", completed: data.completed || false, userId});
         form.reset();
         setOpen(false);
         setLoading(false);
