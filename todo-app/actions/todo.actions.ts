@@ -7,7 +7,7 @@ import { revalidatePath } from "next/cache";
 const prisma = new PrismaClient();
 
 export const getTodosActions = async () => {
-    return await prisma.post.findMany({
+    return await prisma.todo.findMany({
         orderBy: {
             createdAt: "desc",
         },
@@ -16,7 +16,7 @@ export const getTodosActions = async () => {
 }
 
 export const createTodoActions = async ({title, body, completed} : {title: string, body: string, completed: boolean}) => {
-    await prisma.post.create({
+    await prisma.todo.create({
         data: {
             title,
             body,
@@ -27,7 +27,7 @@ export const createTodoActions = async ({title, body, completed} : {title: strin
 }
 
 export const updateTodoActions = async ({id, title, body, completed}: ITodo) => {
-    await prisma.post.update({
+    await prisma.todo.update({
         where: {
             id,
         },
@@ -41,7 +41,7 @@ export const updateTodoActions = async ({id, title, body, completed}: ITodo) => 
 }
 
 export const deleteTodoActions = async ({ id }: {id: string}) => {
-    await prisma.post.delete({
+    await prisma.todo.delete({
         where: {
             id,
         }

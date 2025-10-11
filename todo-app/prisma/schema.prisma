@@ -13,10 +13,11 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Post {
+model Todo {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   title     String
   body      String?
   completed Boolean   @default(false)
+  user_id   String
   createdAt DateTime  @default(now())
 }
