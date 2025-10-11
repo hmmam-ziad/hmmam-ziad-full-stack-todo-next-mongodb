@@ -1,11 +1,8 @@
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 import { ModeToggle } from "./ModeToggle";
 
-interface Iprops {
 
-}
-
-const Nav = ({}: Iprops) => {
+const Nav = () => {
     return(
         <nav className="container flex items-center justify-between">
             <ModeToggle />
