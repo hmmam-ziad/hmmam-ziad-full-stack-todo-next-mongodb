@@ -9,11 +9,12 @@ export const getTodosActions = async () => {
     // => Error handling
 }
 
-export const createTodoActions = async ({title, body} : {title: string, body: string}) => {
+export const createTodoActions = async ({title, body, completed} : {title: string, body: string, completed: boolean}) => {
     await prisma.post.create({
         data: {
             title,
             body,
+            completed
         }
     });
 }

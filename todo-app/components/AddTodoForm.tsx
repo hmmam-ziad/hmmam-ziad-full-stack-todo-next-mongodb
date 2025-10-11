@@ -19,12 +19,14 @@ import { todoFormSchema, todoFormValues } from "@/schema";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createTodoActions } from "@/actions/todo.actions";
+import { Checkbox } from "./ui/checkbox";
 
 const AddTodoForm = () => {
 
     const defaultValues: Partial<todoFormValues> = {
         title: "",
         body: "",
+        completed: false,
     };
 
     const form = useForm<todoFormValues>({
@@ -34,7 +36,7 @@ const AddTodoForm = () => {
     });
 
     const onSubmit = async (data: todoFormValues) => {
-        await createTodoActions({title: data.title, body: data.body || ""});
+        await createTodoActions({title: data.title, body: data.body || "", completed: data.completed || false});
     };
 
     return(
@@ -81,6 +83,27 @@ const AddTodoForm = () => {
                       </FormItem>
                     )}
                   />
+
+                  <FormField
+                    control={form.control}
+                    name="completed"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormControl>
+                          <Checkbox
+                            checked={field.value}
+                            onCheckedChange={field.onChange}
+                            ref={field.ref}
+                            name={field.name}
+                          />
+                        </FormControl>
+                        <FormLabel>Completed</FormLabel>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+
                   <DialogFooter>
                     <DialogClose asChild>
                         <Button variant="outline">Cancel</Button>
